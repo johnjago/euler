@@ -1,16 +1,19 @@
-;; the sequence (1 1 2 3 5 8 13 ...)
+;; Even Fibonacci numbers
+
+;; By considering the terms in the Fibonacci sequence whose values do not exceed
+;; four million, find the sum of the even-valued terms.
+
 (defn fib
-  ([]
-    (fib 1 1))
-  ([a b]
-    (lazy-seq (cons a (fib b (+ a b))))))
+  "Produces the sequence (1 1 2 3 5 8 13 ...)"
+  ([] (fib 1 1))
+  ([a b] (lazy-seq (cons a (fib b (+ a b))))))
 
-;; filters out the even numbers from a collection
-(defn evens [coll]
-  (filter even? coll))
+(defn evens
+  "Filters out the even numbers from a collection."
+  [coll] (filter even? coll))
 
-;; the problem states to only consider the terms that do not exceed four million
-(def less-than-four-mil
-  (fn [x] (< x 4000000)))
+(defn less-than-four-million
+  "Checks if the given number is less than 4 million."
+  [x] (< x 4000000))
 
-(println (reduce + (evens (take-while less-than-four-mil (fib)))))
+(println (reduce + (evens (take-while less-than-four-million (fib)))))
